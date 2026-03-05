@@ -1,0 +1,74 @@
+==============================
+Instructions for Running GPT-4o Mini
+==============================
+
+Overview:
+---------
+This setup uses OpenAI’s fine-tuning API with GPT-4o-mini for task-specific classification.
+
+Data Format:
+------------
+
+##For Training and Dev:
+------------------------
+Use OpenAI’s Chat ML format with a list of messages. Each item includes the system instruction, user input (org name and description), and assistant label (Standard Industrial Classification (SIC) code).
+
+Example (train/dev):
+{
+  "messages": [
+    {"role": "system", "content": "You are a classifier that assigns SIC codes based on an organization's name and business description."},
+    {"role": "user", "content": "Organization: Acme Corp\nDescription: A leading manufacturer of industrial chemicals."},
+    {"role": "assistant", "content": "Chemicals and Allied Products"}
+  ]
+}
+
+##For Testing:
+--------------------------
+The completion is omitted; the assistant's response will be predicted by the model.
+
+Example (test):
+{
+  "messages": [
+    {"role": "system", "content": "You are a classifier that assigns SIC codes based on an organization's name and business description."},
+    {"role": "user", "content": "Organization: BioHarvest Ltd\nDescription: Develops and produces plant-based food supplements using biotech."}
+  ]
+}
+
+Dataset Variants:
+-----------------
+You can create different variants using:
+- gsnip: Google search snippets 
+- gptsummary: GPT-4o-mini generated summaries  
+- llamasummary: LLaMA 3.1–8B Instruct generated summaries  
+- gsnip+gptsummary: Combined inputs of google snippets + GPT-4o-mini generated summaries
+- gsnip+llamasummary: Combined inputs of google snippets + LLaMA 3.1–8B Instruct generated summaries
+
+Steps:
+------
+
+1. Format your training, dev, and test datasets into JSONL files using the above Chat ML structure.
+
+2. Upload files to OpenAI:
+   ```bash
+   openai api files upload -p fine-tune -f train_gpt4o.jsonl
+   openai api files upload -p fine-tune -f dev_gpt4o.jsonl
+
+3. Start fine-tuning:
+openai api fine_tuning.job.create \
+  -t <training_file_id> \
+  -v <validation_file_id> \
+  -m gpt-4o-mini-2024-07-18 \
+  --suffix "<experiment-suffix>"
+
+4. Monitor the fine-tuning progress:
+openai api fine_tuning.jobs.list
+
+5. Inference with Fine-Tuned GPT-4o Mini Model
+After fine-tuning is complete, OpenAI will provide you with a model ID similar to this format:
+ft:gpt-4o-mini-2024-07-18:organization-classifier:xxxxxxxxxxxxx
+
+For inference, you can use the inference.py script under:
+src/gpt-4o-mini/inference.py
+
+6. Evaluate the inference performance using the evaluation script under:
+src/gpt-4o-mini/evaluation.py
