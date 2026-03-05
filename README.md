@@ -22,3 +22,67 @@ To get started, first clone the GitHub repository:
 git clone https://github.com/alamfahmida/dynamic-text-acquisition-entity-classification.git
 cd dynamic-text-acquisition-entity-classification
 ```
+### Create and Activate Virtual Environment
+
+Create a virtual environment:
+
+```bash
+python3 -m venv venv
+```
+
+Activate the virtual environment.
+
+**On macOS/Linux:**
+
+```bash
+source venv/bin/activate
+```
+
+**On Windows:**
+
+```bash
+venv\Scripts\activate
+```
+
+Install all required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+## Dataset
+
+This repository includes two datasets used in our experiments:
+
+1. **SIC Code Dataset** – for organization classification  
+2. **Healthcare Provider Taxonomy Dataset** – for healthcare provider classification  
+
+### SIC Code Dataset
+
+The **SIC-code dataset** is used for classifying organizations into **Standard Industrial Classification (SIC) codes**.
+
+The dataset is available on Hugging Face and must be downloaded before running any training or testing script.
+
+### Dataset Download Instructions
+
+```bash
+git lfs install
+git clone https://huggingface.co/datasets/ICICLE-AI/organization-sic-code_smart-foodsheds
+```
+
+After downloading, extract and place the unzipped `data/sic-code` folder in the root directory (next to `src/`).
+
+### Dataset Variants
+
+The dataset includes multiple variants based on the source of the organization descriptions:
+
+- **gsnip** – Google search snippets  
+- **gptsummary** – GPT-4o-mini generated summaries  
+- **llamasummary** – LLaMA 3.1–8B Instruct generated summaries  
+- **gsnip+gptsummary** – Combined inputs of Google snippets + GPT-4o-mini generated summaries  
+- **gsnip+llamasummary** – Combined inputs of Google snippets + LLaMA 3.1–8B Instruct generated summaries  
+
+Each variant includes the following splits:
+
+- `train.csv`
+- `dev.csv`
+- `test.csv`
