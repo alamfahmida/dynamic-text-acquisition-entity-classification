@@ -11,3 +11,14 @@ We evaluate our framework on two classification tasks:
 
 - **Standard Industrial Classification (SIC) code classification** for organizations
 - **Healthcare provider taxonomy code classification** for medical providers
+
+## How-To Guides
+
+### Repository Clone
+
+To get started, first clone the GitHub repository:
+
+```bash
+git clone https://github.com/alamfahmida/dynamic-text-acquisition-entity-classification.git
+cd dynamic-text-acquisition-entity-classification
+```
