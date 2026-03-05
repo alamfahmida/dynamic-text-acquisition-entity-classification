@@ -86,3 +86,15 @@ Each variant includes the following splits:
 - `train.csv`
 - `dev.csv`
 - `test.csv`
+
+### Healthcare Provider Taxonomy Dataset
+
+The **Healthcare Provider Taxonomy dataset** is used for classifying healthcare providers into **healthcare provider taxonomy codes**, which represent a provider’s medical specialty and area of practice.
+
+Due to ethical considerations related to identifiable healthcare providers, we do **not release certain derived data directly** in this repository.
+
+Specifically:
+
+- We **do not release the raw Google search snippets (gsnip)** associated with provider names.
+- Instead, we release the **URLs of the retrieved sources** so that users can reproduce the retrieval process.
+- We **do not release the LLM-generated summaries** of healthcare providers.
