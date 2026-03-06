@@ -98,3 +98,34 @@ Specifically:
 - We **do not release the raw Google search snippets (gsnip)** associated with provider names.
 - Instead, we release the **URLs of the retrieved sources** so that users can reproduce the retrieval process.
 - We **do not release the LLM-generated summaries** of healthcare providers.
+
+### Reconstructing Google Snippet Passages from URLs
+
+Although the raw Google search snippets are not released, users can reconstruct similar textual evidence using the **URLs provided in the dataset**.
+
+The dataset is released as:
+
+```
+data/
+└── healthcare-taxonomy-code/
+    └── healthcare-taxonomy-dataset.zip
+```
+
+After extraction, the directory structure will be:
+
+```
+data/healthcare-taxonomy-code/
+├── dev/
+├── test/
+└── train/
+```
+
+Each split contains the same column structure. Each row corresponds to a healthcare provider and includes:
+
+- `provider_name` – the name of the healthcare provider  
+- `Healthcare Provider Taxonomy Code_1` – the taxonomy code label  
+- `Grouping`, `Classification`, `Specialization` – taxonomy hierarchy information  
+- `org_1_link` … `org_10_link` – URLs of retrieved web sources describing the provider  
+
+
+
