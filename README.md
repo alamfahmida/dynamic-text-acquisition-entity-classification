@@ -159,7 +159,7 @@ Due to redistribution restrictions on generated content, we **do not release the
 
 We generated summaries using **GPT-4o-mini** through the OpenAI API.
 
-**Prompt**
+**Prompt:**
  Summarize the healthcare specialization, scope of practice, and typical services provided by [PROVIDER_NAME]. The summary should describe the clinician’s professional type and main field of practice, following standard U.S. healthcare taxonomy conventions.
 
 
