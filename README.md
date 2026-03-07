@@ -142,3 +142,27 @@ To reconstruct similar snippets, users can follow these steps:
 5. **Concatenate the top 10 snippets** and store them as **GSnip**.
 6. Repeat this process for all providers in the **train, dev, and test** sets.
 
+## Reconstructing LLM-Generated Text
+
+In addition to web-retrieved snippets (GSnip), our framework also generates **task-specific descriptive summaries using Large Language Models (LLMs)**. These summaries provide structured descriptions of the entities and are used as an additional source of text for training the classification models.
+
+In our experiments, we generated summaries using two LLMs:
+
+- **GPT-4o-mini** (`gpt-4o-mini-2024-07-18`)
+- **LLaMA-3.1-8B-Instruct** (`meta-llama/Llama-3.1-8B-Instruct`)
+
+Due to redistribution restrictions on generated content, we **do not release the LLM-generated summaries directly**. Instead, we provide the prompts used in our experiments so that users can reproduce them.
+
+---
+
+## GPT-4o-mini Summary Generation
+
+We generated summaries using **GPT-4o-mini** through the OpenAI API.
+
+
+### Healthcare Provider (Taxonomy Code Task)
+
+Prompt: Summarize the healthcare specialization, scope of practice, and typical services provided by [PROVIDER_NAME]. The summary should describe the clinician’s professional type and main field of practice, following standard U.S. healthcare taxonomy conventions.
+
+
+
