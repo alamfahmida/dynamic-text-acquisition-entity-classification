@@ -197,6 +197,7 @@ Run the training scripts for each model as follows:
 python src/bert/train_bert.py --dataset gsnip
 python src/roberta/train_roberta.py --dataset gptsummary
 python src/longformer/train_longformer.py --dataset gsnip+llamasummary
+```
 
 ### Saved Model
 
@@ -218,7 +219,7 @@ Run the testing scripts as follows:
 python src/bert/test_bert.py --dataset gsnip
 python src/roberta/test_roberta.py --dataset gptsummary
 python src/longformer/test_longformer.py --dataset gsnip+llamasummary
-
+```
 All scripts are designed to automatically handle variations in file naming and input formats.
 
 ### Output Files
