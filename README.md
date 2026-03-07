@@ -95,13 +95,19 @@ Due to ethical considerations related to identifiable healthcare providers, we d
 
 Specifically:
 
-- We **do not release the raw Google search snippets (gsnip)** associated with provider names.
-- Instead, we release the **URLs of the retrieved sources** so that users can reproduce the retrieval process.
+- We **do not release the raw Google search snippets (GSnip)** associated with provider names.
+- Instead, we provide detailed instructions on how others can reconstruct the dataset by following our procedure.
 - We **do not release the LLM-generated summaries** of healthcare providers.
 
-### Reconstructing Google Snippet Passages from URLs
+### Instructions for Reconstructing Google Snippet Passages
 
-Although the raw Google search snippets are not released, users can reconstruct similar textual evidence using the **URLs provided in the dataset**.
+In our experiments, we use **text snippets**, which are the small blocks of text that appear underneath a link to a webpage in a search engine results page. These snippets are typically around **100–200 characters long** and provide a short description of the webpage content.
+
+The snippets used in our experiments were originally obtained using **SerpAPI**.
+
+To avoid redistributing third-party content, we do **not release the raw snippets directly**. Instead, we provide instructions for reproducing similar snippets.
+
+In this release, we provide only the **entity list (provider names)** and the corresponding **gold taxonomy labels**.
 
 The dataset is released as:
 
@@ -120,12 +126,19 @@ data/healthcare-taxonomy-code/
 └── train/
 ```
 
+
 Each split contains the same column structure. Each row corresponds to a healthcare provider and includes:
 
 - `provider_name` – the name of the healthcare provider  
-- `Healthcare Provider Taxonomy Code_1` – the taxonomy code label  
-- `Grouping`, `Classification`, `Specialization` – taxonomy hierarchy information  
-- `org_1_link` … `org_10_link` – URLs of retrieved web sources describing the provider  
+- `Healthcare Provider Taxonomy Code_1` – the taxonomy code label (gold label)  
+- `Grouping`, `Classification` – taxonomy hierarchy information  
 
+To reconstruct similar snippets, users can follow these steps:
 
+1. Download the `healthcare-taxonomy-dataset.zip` file and extract it.
+2. Use the **provider name** as the search query.
+3. Use a web search API (e.g., **SerpAPI**, **Google Custom Search API**, or another search service) to collect the small blocks of text that appear underneath links in the search engine results page.
+4. Collect the **top 10 snippets** returned by the search results.
+5. **Concatenate the top 10 snippets** and store them as **GSnip**.
+6. Repeat this process for all providers in the **train, dev, and test** sets.
 
