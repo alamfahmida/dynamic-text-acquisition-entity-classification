@@ -243,12 +243,12 @@ This file reports the overall performance of the model across all SIC categories
 
 The final row provides **macro, micro, and weighted averages** for a comprehensive summary of model performance.
 
-## Ethics Statement
+### Ethics Statement
 
 All healthcare providers included in our benchmark are based in the United States. We obtained the provider names and their corresponding taxonomy codes from the **National Plan and Provider Enumeration System (NPPES)**, maintained by the **Centers for Medicare & Medicaid Services (CMS)**. The NPPES registry is publicly accessible and downloadable in the United States, and the data are released by CMS as publicly available records. Healthcare providers submit this information themselves as part of the **National Provider Identifier (NPI)** registration process, which is required to become HIPAA-covered healthcare providers in the United States.
 
 All experiments were conducted for research purposes only. The dataset does not contain sensitive attributes beyond publicly available professional information. We believe these measures ensure compliance with scientific integrity standards while minimizing potential ethical risks related to data redistribution.
 
-## Acknowledgements
+### Acknowledgements
 
 This research was supported in part by the **ICICLE project** through **NSF award OAC-2112606**.
