@@ -162,5 +162,93 @@ We generated summaries using **GPT-4o-mini** through the OpenAI API.
 **Prompt:**
  Summarize the healthcare specialization, scope of practice, and typical services provided by [PROVIDER_NAME]. The summary should describe the clinician’s professional type and main field of practice, following standard U.S. healthcare taxonomy conventions.
 
+ ## LLaMA-3.1-8B Summary Generation
+
+We also generated summaries using **LLaMA-3.1-8B-Instruct**, which benefits from more explicit prompting to reduce hallucinations and ensure factual descriptions.
+
+**Prompt:**
+You are a research assistant writing a factual summary about a healthcare provider’s specialty.
+
+Given the [PROVIDER_NAME], your goal is to identify and describe their medical specialty, professional focus, qualifications, and the healthcare sector they operate in.
+
+Use only publicly verifiable information. The description should be informative, objective, and around 250–300 words. Do not add any assumptions or speculative content.
+
+## Models
+
+Each model directory under `src/` contains separate training and testing scripts.
+
+You only need to specify the dataset variant using the `--dataset` argument.
+
+Accepted options include:
+
+- `gsnip`
+- `gptsummary`
+- `llamasummary`
+- `gsnip+gptsummary`
+- `gsnip+llamasummary`
+
+---
+
+## Training
+
+Run the training scripts for each model as follows:
+
+```bash
+python src/bert/train_bert.py --dataset gsnip
+python src/roberta/train_roberta.py --dataset gptsummary
+python src/longformer/train_longformer.py --dataset gsnip+llamasummary
+
+### Saved Model
+
+After training, the model and related artifacts are saved to: models/<model_type>/<dataset>/saved_model/
 
 
+Where:
+
+- `model_type` – Name of the model used (e.g., `bert`, `roberta`, `longformer`)
+- `dataset` – Dataset variant passed via `--dataset` (e.g., `gsnip`, `gptsummary`, `llamasummary`, `gsnip+gptsummary`, `gsnip+llamasummary`)
+
+The folder structure is created automatically by the script; no manual setup is required.
+
+### Test
+
+Run the testing scripts as follows:
+
+```bash
+python src/bert/test_bert.py --dataset gsnip
+python src/roberta/test_roberta.py --dataset gptsummary
+python src/longformer/test_longformer.py --dataset gsnip+llamasummary
+
+All scripts are designed to automatically handle variations in file naming and input formats.
+
+### Output Files
+
+After running the classification pipeline, the following output files will be generated:
+
+**label_predictions.csv**
+
+- `org_name` – The name of the organization  
+- `true_label` – The ground-truth SIC category label  
+- `predicted_label` – The label (SIC code) predicted by the model  
+- `confidence_score` – The model's confidence in the prediction  
+
+**classification_report.csv**
+
+This file reports the overall performance of the model across all SIC categories using standard evaluation metrics:
+
+- `precision` – Correct positive predictions out of all predicted positives  
+- `recall` – Correct positive predictions out of all actual positives  
+- `f1-score` – Harmonic mean of precision and recall  
+- `support` – Number of true instances for each class  
+
+The final row provides **macro, micro, and weighted averages** for a comprehensive summary of model performance.
+
+## Ethics Statement
+
+All healthcare providers included in our benchmark are based in the United States. We obtained the provider names and their corresponding taxonomy codes from the **National Plan and Provider Enumeration System (NPPES)**, maintained by the **Centers for Medicare & Medicaid Services (CMS)**. The NPPES registry is publicly accessible and downloadable in the United States, and the data are released by CMS as publicly available records. Healthcare providers submit this information themselves as part of the **National Provider Identifier (NPI)** registration process, which is required to become HIPAA-covered healthcare providers in the United States.
+
+All experiments were conducted for research purposes only. The dataset does not contain sensitive attributes beyond publicly available professional information. We believe these measures ensure compliance with scientific integrity standards while minimizing potential ethical risks related to data redistribution.
+
+## Acknowledgements
+
+This research was supported in part by the **ICICLE project** through **NSF award OAC-2112606**.
